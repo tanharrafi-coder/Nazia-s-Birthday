@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Nazia 🎉</title>
+<style>
+  body {
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background: linear-gradient(160deg,#ffecd2,#fcb69f);
+    font-family: 'Poppins', sans-serif;
+    text-align:center;
+  }
+  h1 {
+    font-size:3rem;
+    margin-top:50px;
+    color:#fff;
+    text-shadow:2px 2px 8px #ff6b6b;
+    animation: glow 2s infinite alternate;
+    cursor:pointer;
+  }
+  h2 {
+    font-size:2rem;
+    color:#ffe066;
+    margin:10px 0;
+    font-family:'Brush Script MT',cursive;
+    text-shadow:0 0 10px #fffa65;
+  }
+  @keyframes glow{
+    from{ text-shadow:0 0 10px #ff6b6b,0 0 20px #ffe066;}
+    to{ text-shadow:0 0 30px #ff9a9e,0 0 40px #ffe066;}
+  }
+  .balloon {
+    position:absolute;
+    width:50px;
+    height:70px;
+    border-radius:50%;
+    background:red;
+    animation: float 8s linear infinite;
+  }
+  @keyframes float{
+    0%{transform:translateY(100vh) rotate(0deg);}
+    100%{transform:translateY(-150vh) rotate(360deg);}
+  }
+  .cake{
+    margin:40px auto;
+    width:200px;
+    height:120px;
+    background:#e07a5f;
+    border-radius:0 0 20px 20px;
+    position:relative;
+  }
+  .cake::before{
+    content:"";
+    position:absolute;
+    top:-40px;
+    left:20px;
+    width:160px;
+    height:40px;
+    background:#f2cc8f;
+    border-radius:10px 10px 0 0;
+  }
+  .candle{
+    width:12px;
+    height:50px;
+    background:white;
+    display:inline-block;
+    margin:-55px 12px;
+    border-radius:3px;
+    position:relative;
+  }
+  .flame{
+    width:15px;
+    height:15px;
+    background:gold;
+    border-radius:50%;
+    position:absolute;
+    top:-18px;
+    left:-2px;
+    box-shadow:0 0 10px yellow;
+    animation:flicker 0.3s infinite alternate;
+  }
+  @keyframes flicker{
+    from{transform:scale(1);opacity:0.9;}
+    to{transform:scale(1.3);opacity:0.6;}
+  }
+  .confetti{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:gold;
+    opacity:0.9;
+    transform:rotate(45deg);
+  }
+</style>
+</head>
+<body>
+<h1 id="title">🎉 Happy Birthday 🎉</h1>
+<h2>Nazia</h2>
+<div class="cake">
+  <div class="candle"><div class="flame"></div></div>
+  <div class="candle"><div class="flame"></div></div>
+  <div class="candle"><div class="flame"></div></div>
+</div>
+
+<script>
+// 🎈 Generate balloons
+function createBalloon(){
+  const colors = ["#ff6b6b","#ffd93d","#6bcb77","#4d96ff","#c77dff","#ff8a5b"];
+  const balloon = document.createElement("div");
+  balloon.classList.add("balloon");
+  balloon.style.left=Math.random()*window.innerWidth+"px";
+  balloon.style.background=colors[Math.floor(Math.random()*colors.length)];
+  balloon.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(balloon);
+  setTimeout(()=>{ balloon.remove(); },10000);
+}
+setInterval(createBalloon,500);
+
+// 🎉 Confetti on click
+document.getElementById("title").addEventListener("click",function(){
+  for(let i=0;i<50;i++){
+    const confetti=document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left=Math.random()*window.innerWidth+"px";
+    confetti.style.top=Math.random()*window.innerHeight+"px";
+    confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(confetti);
+    let xSpeed=Math.random()*4-2;
+    let ySpeed=Math.random()*4+1;
+    let rotSpeed=Math.random()*10-5;
+    (function animateConfetti(c){
+      let posX=parseFloat(c.style.left);
+      let posY=parseFloat(c.style.top);
+      let rot=0;
+      const anim=setInterval(()=>{
+        posX+=xSpeed;
+        posY+=ySpeed;
+        rot+=rotSpeed;
+        c.style.left=posX+"px";
+        c.style.top=posY+"px";
+        c.style.transform=`rotate(${rot}deg)`;
+        if(posY>window.innerHeight){ clearInterval(anim); c.remove(); }
+      },20);
+    })(confetti);
+  }
+});
+</script>
+</body>
+</html>
